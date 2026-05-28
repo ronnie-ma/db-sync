@@ -50,8 +50,8 @@ def validate_config(config):
     if not (config.mergin.url and config.mergin.username and config.mergin.password):
         raise ConfigError("Config error: Incorrect mergin settings")
 
-    if not (config.connections and len(config.connections)):
-        raise ConfigError("Config error: Connections list can not be empty")
+    if not (config.connections):
+        raise ConfigError("Config error: Connections dictionary can not be empty")
 
     if "init_from" not in config:
         raise ConfigError("Config error: Missing parameter `init_from` in the configuration.")
@@ -64,44 +64,16 @@ def validate_config(config):
             f"Config error: `init_from` parameter must be either `gpkg` or `db`. Current value is `{config.init_from}`."
         )
 
-    for conn in config.connections:
-        for attr in [
-            "driver",
-            "conn_info",
-            "modified",
-            "base",
-            "mergin_project",
-            "sync_file",
-        ]:
-            if not hasattr(
-                conn,
-                attr,
-            ):
-                raise ConfigError(
-                    f"Config error: Incorrect connection settings. Required parameter `{attr}` is missing."
-                )
-
-        if conn.driver != "postgres":
-            raise ConfigError("Config error: Only 'postgres' driver is currently supported.")
-
-        if "/" not in conn.mergin_project:
-            raise ConfigError(
-                "Config error: Name of the Mergin Maps project should be provided in the namespace/name format."
-            )
-
-        if "skip_tables" in conn:
-            if conn.skip_tables is None:
-                continue
-            elif isinstance(
-                conn.skip_tables,
-                str,
-            ):
-                continue
-            elif not isinstance(
-                conn.skip_tables,
-                list,
-            ):
-                raise ConfigError("Config error: Ignored tables parameter should be a list")
+    
+    if (not (config.connections.driver) or 
+        not (config.connections.conn_info) or 
+        not (config.connections.modified) or 
+        not (config.connections.base) or 
+        not (config.connections.mergin_project) or 
+        not (config.connections.sync_file)):
+        raise ConfigError(
+            f"Config error: Incorrect connection settings. Required parameter incomplete."
+        )
 
     if "notification" in config:
         settings = [

@@ -1446,26 +1446,26 @@ def init(
 
 def dbsync_init(mc):
     from_gpkg = config.init_from.lower() == "gpkg"
-    for conn in config.connections:
-        init(
-            conn,
-            mc,
-            from_gpkg=from_gpkg,
-        )
+    # for conn in config.connections:
+    init(
+        config.connections,
+        mc,
+        from_gpkg=from_gpkg,
+    )
 
     logging.debug("Init done!")
 
 
 def dbsync_pull(mc):
-    for conn in config.connections:
-        pull(conn, mc)
+    # for conn in config.connections:
+    pull(config.connections, mc)
 
     logging.debug("Pull done!")
 
 
 def dbsync_push(mc):
-    for conn in config.connections:
-        push(conn, mc)
+    # for conn in config.connections:
+    push(config.connections, mc)
 
     logging.debug("Push done!")
 
@@ -1473,8 +1473,8 @@ def dbsync_push(mc):
 def dbsync_status(
     mc,
 ):
-    for conn in config.connections:
-        status(conn, mc)
+    # for conn in config.connections:
+    status(config.connections, mc)
 
 
 def clean(conn_cfg, mc):
@@ -1531,8 +1531,8 @@ def clean(conn_cfg, mc):
 def dbsync_clean(
     mc,
 ):
-    for conn in config.connections:
-        clean(conn, mc)
+    # for conn in config.connections:
+    clean(config.connections, mc)
 
     logging.debug("Cleaning done!")
 

@@ -52,12 +52,12 @@ def main():
         epilog="www.merginmaps.com",
     )
 
-    parser.add_argument(
-        "config_file",
-        nargs="?",
-        default="config.yaml",
-        help="Path to file with configuration. Default value is config.yaml in current working directory.",
-    )
+    # parser.add_argument(
+    #     "config_file",
+    #     nargs="?",
+    #     default="config.yaml",
+    #     help="Path to file with configuration. Default value is config.yaml in current working directory.",
+    # )
     parser.add_argument(
         "--skip-init",
         action="store_true",
@@ -111,10 +111,10 @@ def main():
     else:
         setup_logger()
 
-    try:
-        update_config_path(args.config_file)
-    except IOError as e:
-        handle_error_and_exit(e)
+    # try:
+    #     update_config_path(args.config_file)
+    # except IOError as e:
+    #     handle_error_and_exit(e)
 
     if args.show_config:
         pprint.pprint(config.as_dict())
