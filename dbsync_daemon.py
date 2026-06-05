@@ -116,9 +116,9 @@ def main():
     # except IOError as e:
     #     handle_error_and_exit(e)
 
-    if args.show_config:
-        pprint.pprint(config.as_dict())
-        sys.exit(0)
+    # if args.show_config:
+    pprint.pprint(config.as_dict())
+    # sys.exit(0)
 
     logging.debug(f"== starting mergin-db-sync daemon == version {__version__} ==")
 

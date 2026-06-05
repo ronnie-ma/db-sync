@@ -120,13 +120,14 @@ def get_ignored_tables(
     connection,
 ):
     if "skip_tables" in connection:
+        print(f"Ignored Tables input: {connection.skip_tables}")
         if connection.skip_tables is None:
             return []
         elif isinstance(
             connection.skip_tables,
             str,
         ):
-            return [connection.skip_tables]
+            return connection.skip_tables.split(",")
         elif isinstance(
             connection.skip_tables,
             list,
@@ -137,6 +138,7 @@ def get_ignored_tables(
                 return connection.skip_tables.to_list()
             return connection.skip_tables
     else:
+        print("No ignored tables")
         return []
 
 
